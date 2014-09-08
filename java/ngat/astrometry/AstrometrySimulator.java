@@ -6,7 +6,6 @@ package ngat.astrometry;
 import java.util.List;
 import java.util.Vector;
 
-import sun.font.AdvanceCache;
 
 import ngat.util.ControlThread;
 
