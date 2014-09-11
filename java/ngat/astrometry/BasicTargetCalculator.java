@@ -112,16 +112,11 @@ public class BasicTargetCalculator implements TargetTrackCalculator {
 		XEphemerisTrackNode b = null;
 
 		// turn into an array for simplicity of handling...
-		// XEphemerisTrackNode[] track = (XEphemerisTrackNode[])
-		// (positionSet.toArray());
-		// System.err.println("TargetCalculator: interpolateTrack():Creating track array size: "+positionSet.size());
 		XEphemerisTrackNode[] track = new XEphemerisTrackNode[positionSet.size()];
-		// System.err.println("TargetCalculator: interpolateTrack():Track array initialized: "+track);
-
+		
 		int index = 0;
 		Iterator itrack = positionSet.iterator();
-		while (itrack.hasNext()) {
-			// System.err.println("TargetCalculator: interpolateTrack(): copying index: "+index);
+		while (itrack.hasNext()) {		
 			XEphemerisTrackNode xtn = (XEphemerisTrackNode) itrack.next();
 			track[index] = xtn;
 			index++;
@@ -129,7 +124,8 @@ public class BasicTargetCalculator implements TargetTrackCalculator {
 
 		// case 1 - before first node.
 		if (time < first.time) {
-			//System.err.println("TargetCalculator: interpolateTrack():before first");
+			// an alternative is to throw an exception and not try to extrapolate
+			//throw new Exception(String.format("Interpolation time %tc is before first node at %tc",time, first.time));
 			a = first;
 			if (positionSet.size() >= 2) {
 				b = track[1]; // (0, 1)
@@ -138,8 +134,9 @@ public class BasicTargetCalculator implements TargetTrackCalculator {
 		}
 
 		// case 2 - after last node.
-		if (time > last.time) {
-			//System.err.println("TargetCalculator: interpolateTrack():after last");
+		if (time > last.time) {			
+			// an alternative is to throw an exception and not try to extrapolate
+			//throw new Exception(String.format("Interpolation time %tc is after last node at %tc",time, last.time));
 			b = last;
 			if (positionSet.size() >= 2) {
 				a = track[positionSet.size() - 2]; // (n-2, n-1)
@@ -152,16 +149,10 @@ public class BasicTargetCalculator implements TargetTrackCalculator {
 		if (time >= first.time && time <= last.time) {
 			//System.err.println("TargetCalculator: interpolateTrack():between first and last");
 			for (int i = 0; i < positionSet.size() - 1; i++) {
-				// extract coord at time using the set of points...
-				// point.ra point.dec point.raDot point.decDot
-
+				
 				// cubic - extract 4 points either side
 				// linear - extract 2 points either side
-				//System.err.println("TargetCalculator: interpolateTrack():tas=" + (time - first.time) 
-						//	+ " tbf="+(last.time-time));
-				//System.err.println("TargetCalculator: interpolateTrack():interval:" + i + " -> " + (i + 1) + " of "
-						//+ positionSet.size());
-
+				
 				// find interval containing time
 				if (track[i].time <= time && track[i + 1].time >= time) {
 					//System.err.println("TargetCalculator: interpolateTrack():found in interval");
@@ -176,12 +167,43 @@ public class BasicTargetCalculator implements TargetTrackCalculator {
 		return interpolate(a, b, time);
 	}
 
-	private Coordinates interpolate(XEphemerisTrackNode a, XEphemerisTrackNode b, long time) throws Exception {
+	private Coordinates interpolate(XEphemerisTrackNode a1, XEphemerisTrackNode a2, long time) throws Exception {
 
-		double ra = (double) (time - a.time) * (b.ra - a.ra) / (double) (b.time - a.time) + a.ra;
-		double dc = (double) (time - a.time) * (b.dec - a.dec) / ((double) b.time - a.time) + a.dec;
+		//double ra = (double) (time - a.time) * (b.ra - a.ra) / (double) (b.time - a.time) + a.ra;
+		//double dc = (double) (time - a.time) * (b.dec - a.dec) / ((double) b.time - a.time) + a.dec;
 
-		return new Coordinates(ra, dc);
+		//return new Coordinates(ra, dc);
+
+		// times at a1,a2
+		double t1 = (double)(a1.time);
+		double t2 = (double)(a2.time);
+
+		// t1 <= epoch <= t2 hopefully
+		// calculate fraction of interval
+		double f = (time-t1)/(t2-t1);
+
+		double ra1 = a1.ra;
+		double ra2 = a2.ra;
+		double dec1 = a1.dec;
+		double dec2 = a2.dec;
+		
+		// angular seperation - distance to travel - TODO do we need to check wraps ??? or does it just work anyway ???
+		double dd = Math.acos(Math.cos(dec1)*Math.cos(dec2)*Math.cos(ra1-ra2) + Math.sin(dec1)*Math.sin(dec2));
+		
+		// calculations....
+		double aa = Math.sin((1-f)*dd)/Math.sin(dd);
+		double bb = Math.sin(f*dd)/Math.sin(dd);
+
+		double x = aa*Math.cos(dec1)*Math.cos(ra1) + bb*Math.cos(dec2)*Math.cos(ra2);
+		double y = aa*Math.cos(dec1)*Math.sin(ra1) + bb*Math.cos(dec2)*Math.sin(ra2);	
+		double z = aa*Math.sin(dec1) + bb*Math.sin(dec2);
+
+		double fdec = Math.atan2(z, Math.sqrt(x*x+y*y));
+		double fra  = Math.atan2(y, x);
+
+	
+		System.err.println("**Ephem Target at: "+AstroFormatter.formatHMS(fra, ":")+","+AstroFormatter.formatDMS(fdec, ":")); 
+		return new Coordinates(fra,fdec);
 
 	}
 
