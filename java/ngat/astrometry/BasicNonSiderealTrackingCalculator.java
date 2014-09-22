@@ -40,7 +40,7 @@ public class BasicNonSiderealTrackingCalculator implements
 		Coordinates c1 = null;
 
 		int ic = 0;
-		while ((dd > MAX_DD) && dt > 1L) {
+		while ((dd > MAX_DD) && dt > 10L) {
 			ic++;
 			dt /= 2;
 
