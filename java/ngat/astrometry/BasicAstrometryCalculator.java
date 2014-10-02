@@ -265,14 +265,12 @@ public class BasicAstrometryCalculator implements AstrometryCalculator, Serializ
 
 	}
 
-	public boolean isRisen(Coordinates target, ISite site, double horizon, long ttime) throws AstrometryException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isRisen(Coordinates target, ISite site, double horizon, long time) throws AstrometryException {	
+		return (getAltitude(target, site, time) >= horizon);
 	}
 
-	public boolean isSet(Coordinates sgt, ISite site, double horizon, long time) throws AstrometryException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isSet(Coordinates target, ISite site, double horizon, long time) throws AstrometryException {
+		return (getAltitude(target, site, time) <horizon);
 	}
 
 	/**
@@ -485,6 +483,10 @@ public class BasicAstrometryCalculator implements AstrometryCalculator, Serializ
 		return 0;
 	}
 
+	
+	//  dist =  acos( cos(d1).cos(d2).cos(a1-a2) + sin(d1).sin(d2) )
+	// if ra and d are time varying, cpa occurs when d(dist)/dt = 0
+	
 	public double getAngularSeperation(Coordinates a, Coordinates b) throws AstrometryException {
 		return Math.acos(Math.cos(a.getDec()) * Math.cos(b.getDec()) * Math.cos(a.getRa() - b.getRa())
 				+ Math.sin(a.getDec()) * Math.sin(b.getDec()));
