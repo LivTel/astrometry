@@ -14,30 +14,27 @@ import ngat.phase2.XSlaNamedPlanetTarget;
 public class JAstroSlalib implements AstroLib {
 
     /*
-  **********************************************************************   
+      **********************************************************************   
       *                                                                    *   
       *                   I E R S   B U L L E T I N - A                    *   
       *                                                                    *   
       *           Rapid Service/Prediction of Earth Orientation            *   
       **********************************************************************   
-      4 September 2014                                    Vol. XXVII No. 036   
+      1 January 2015                                     Vol. XXVIII No. 001   
       ______________________________________________________________________   
       GENERAL INFORMATION:                                                     
-    To receive this information electronically, contact:                  
+         To receive this information electronically, contact:                  
             ser7@maia.usno.navy.mil or use                                     
-		<http://maia.usno.navy.mil/docrequest.html>                        
+            <http://maia.usno.navy.mil/docrequest.html>                        
          MJD = Julian Date - 2 400 000.5 days                                  
-	     UT2-UT1 = 0.022 sin(2*pi*T) - 0.012 cos(2*pi*T)                       
-	     - 0.006 sin(4*pi*T) + 0.007 cos(4*pi*T)   
+         UT2-UT1 = 0.022 sin(2*pi*T) - 0.012 cos(2*pi*T)                       
+                                     - 0.006 sin(4*pi*T) + 0.007 cos(4*pi*T)   
             where pi = 3.14159265... and T is the date in Besselian years.     
          TT = TAI + 32.184 seconds                                             
-	     DUT1= (UT1-UTC) transmitted with time signals                         
-             =  -0.3 seconds beginning 8 May 2014 at 0000 UTC                  
-             =  -0.4 seconds beginning 25 Sep 2014 at 0000 UTC                 
-	     Beginning 1 July 2012:                                                
+         DUT1= (UT1-UTC) transmitted with time signals                         
+             =  -0.5 seconds beginning 25 Dec 2014 at 0000 UTC                 
+         Beginning 1 July 2012:                                                
             TAI-UTC = 35.000 000 seconds                                       
-     ***********************************************************************
-
      */
 
     /** The UTC timezone. */
@@ -52,9 +49,9 @@ public class JAstroSlalib implements AstroLib {
 
     /*
      *  DUT1= (UT1-UTC) transmitted with time signals                         
-     *   =  -0.4 seconds beginning 25 Sep 2014 at 0000 UTC   
+     *   = -0.5 seconds beginning 25 Dec 2014 at 0000 UTC 
      */
-    static final double UT1UTC = -0.4;
+    static final double UT1UTC = -0.5;
 
     /**
      * Calls slaCldj with the specified parameters.
