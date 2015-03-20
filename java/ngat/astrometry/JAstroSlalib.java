@@ -50,8 +50,9 @@ public class JAstroSlalib implements AstroLib {
     /*
      *  DUT1= (UT1-UTC) transmitted with time signals                         
      *   = -0.5 seconds beginning 25 Dec 2014 at 0000 UTC 
+     *   =  -0.6 seconds beginning 19 Mar 2015 at 0000 UTC
      */
-    static final double UT1UTC = -0.5;
+    static final double UT1UTC = -0.6;
 
     /**
      * Calls slaCldj with the specified parameters.
