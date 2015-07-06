@@ -14,13 +14,7 @@ import ngat.phase2.XSlaNamedPlanetTarget;
 public class JAstroSlalib implements AstroLib {
 
     /*
-      **********************************************************************   
-      *                                                                    *   
-      *                   I E R S   B U L L E T I N - A                    *   
-      *                                                                    *   
-      *           Rapid Service/Prediction of Earth Orientation            *   
-      **********************************************************************   
-      1 January 2015                                     Vol. XXVIII No. 001   
+      2 July 2015                                        Vol. XXVIII No. 027   
       ______________________________________________________________________   
       GENERAL INFORMATION:                                                     
          To receive this information electronically, contact:                  
@@ -32,9 +26,9 @@ public class JAstroSlalib implements AstroLib {
             where pi = 3.14159265... and T is the date in Besselian years.     
          TT = TAI + 32.184 seconds                                             
          DUT1= (UT1-UTC) transmitted with time signals                         
-             =  -0.5 seconds beginning 25 Dec 2014 at 0000 UTC                 
-         Beginning 1 July 2012:                                                
-            TAI-UTC = 35.000 000 seconds                                       
+             =  +0.3 seconds beginning 01 Jul 2015 at 0000 UTC                 
+         Beginning 1 July 2015:                                                
+            TAI-UTC = 36.000 000 seconds                                       
      */
 
     /** The UTC timezone. */
@@ -44,15 +38,18 @@ public class JAstroSlalib implements AstroLib {
      * TAI-UTC correction = no of leapseconds since datum.
      * Beginning 1 July 2012:                                                
      * TAI-UTC = 35.000 000 seconds 
+     * Beginning 1 July 2015:                                                
+     * TAI-UTC = 36.000 000 seconds 
      */              
-    static final double TAIUTC = 35.0; // last LS was 2012-07-01
+    static final double TAIUTC = 36.0;
 
     /*
      *  DUT1= (UT1-UTC) transmitted with time signals                         
      *   = -0.5 seconds beginning 25 Dec 2014 at 0000 UTC 
-     *   =  -0.6 seconds beginning 19 Mar 2015 at 0000 UTC
+     *   = -0.6 seconds beginning 19 Mar 2015 at 0000 UTC
+     *   = +0.3 seconds beginning 1 Jul 2015 at 0000 UTC
      */
-    static final double UT1UTC = -0.6;
+    static final double UT1UTC = +0.3;
 
     /**
      * Calls slaCldj with the specified parameters.
