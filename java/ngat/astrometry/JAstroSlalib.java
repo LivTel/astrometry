@@ -49,9 +49,10 @@ public class JAstroSlalib implements AstroLib {
      *   = -0.6 seconds beginning 19 Mar 2015 at 0000 UTC
      *   = +0.3 seconds beginning 1 Jul 2015 at 0000 UTC
      *   = +0.2 seconds beginning 17 Sep 2015 at 0000 UTC                 
-     *   =  +0.1 seconds beginning 26 Nov 2015 at 0000 UTC 
+     *   = +0.1 seconds beginning 26 Nov 2015 at 0000 UTC 
+     *   = +0.0 seconds beginning 31 Jan 2016 at 0000 UTC      
      */
-    static final double UT1UTC = +0.1;
+    static final double UT1UTC = +0.0;
 
     /**
      * Calls slaCldj with the specified parameters.
