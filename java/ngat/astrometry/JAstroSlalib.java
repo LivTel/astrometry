@@ -40,8 +40,10 @@ public class JAstroSlalib implements AstroLib {
      * TAI-UTC = 35.000 000 seconds 
      * Beginning 1 July 2015:                                                
      * TAI-UTC = 36.000 000 seconds 
+     * Beginning 1 Jan 2016:                                                
+     * TAI-UTC = 37.000 000 seconds 
      */              
-    static final double TAIUTC = 36.0;
+    static final double TAIUTC = 37.0;
 
     /*
      *  DUT1= (UT1-UTC) transmitted with time signals                         
@@ -55,8 +57,9 @@ public class JAstroSlalib implements AstroLib {
      *   = -0.2 seconds beginning 19 May 2016 at 0000 UTC    
      *   =  -0.3 seconds beginning 01 Sep 2016 at 0000 UTC         
      *   =  -0.4 seconds beginning 17 Nov 2016 at 0000 UTC                 
+     *   =  +0.6 seconds beginning 01 Jan 2017 at 0000 UTC
      */
-    static final double UT1UTC = -0.4;
+    static final double UT1UTC = +0.6;
 
     /**
      * Calls slaCldj with the specified parameters.
